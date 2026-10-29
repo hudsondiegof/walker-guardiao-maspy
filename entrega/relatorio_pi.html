@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Projeto Inicial (PI) — Sistemas Multiagentes — UTFPR</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 15mm 16mm 16mm 16mm;
+    }
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    body {
+      font-family: "Segoe UI", Calibri, Arial, sans-serif;
+      color: #1e293b;
+      font-size: 10.2pt;
+      line-height: 1.45;
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+    }
+    .header-banner {
+      border-bottom: 3px solid #eab308;
+      background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%);
+      color: #f8fafc;
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 9pt;
+      color: #fde047;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .header-title {
+      font-size: 16.5pt;
+      font-weight: 700;
+      margin: 0 0 4px 0;
+      color: #ffffff;
+    }
+    .header-sub {
+      font-size: 10pt;
+      color: #cbd5e1;
+      margin: 0;
+    }
+    .meta-bar {
+      display: flex;
+      justify-content: space-between;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 8px 14px;
+      font-size: 9.2pt;
+      margin-bottom: 16px;
+    }
+    h2 {
+      font-size: 12.5pt;
+      color: #0f172a;
+      border-left: 4px solid #eab308;
+      padding-left: 9px;
+      margin: 18px 0 8px 0;
+      page-break-after: avoid;
+    }
+    h3 {
+      font-size: 10.8pt;
+      color: #1e3a8a;
+      margin: 12px 0 6px 0;
+      page-break-after: avoid;
+    }
+    p {
+      margin: 0 0 8px 0;
+      text-align: justify;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 12px 0;
+      font-size: 9.4pt;
+      break-inside: avoid;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 6px 9px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+    }
+    tr:nth-child(even) td {
+      background: #fcfcfd;
+    }
+    .formula-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid #2563eb;
+      border-radius: 6px;
+      padding: 9px 14px;
+      margin: 8px 0 12px 0;
+      font-size: 9.8pt;
+      break-inside: avoid;
+    }
+    .formula-math {
+      font-family: "Cambria Math", Georgia, serif;
+      font-size: 11pt;
+      text-align: center;
+      margin: 4px 0;
+      color: #0f172a;
+    }
+    .figure-card {
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 10px 12px 8px 12px;
+      margin: 10px 0 14px 0;
+      background: #ffffff;
+      break-inside: avoid;
+    }
+    .figure-caption {
+      font-size: 8.8pt;
+      color: #475569;
+      text-align: center;
+      margin-top: 6px;
+      font-style: italic;
+    }
+    .badge {
+      display: inline-block;
+      padding: 1px 7px;
+      border-radius: 10px;
+      font-size: 8.4pt;
+      font-weight: 700;
+    }
+    .b-active { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+    .b-partial { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+    .b-none { background: #f1f5f9; color: #64748b; border: 1px solid #cbd5e1; }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 8.9pt;
+      background: #f1f5f9;
+      padding: 1px 4px;
+      border-radius: 3px;
+      color: #0f172a;
+    }
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 8px 11px;
+      border-radius: 6px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 8.1pt;
+      line-height: 1.32;
+      margin: 5px 0 8px 0;
+      overflow-x: hidden;
+      white-space: pre-wrap;
+      break-inside: avoid;
+    }
+    .page-break {
+      page-break-before: always;
+    }
+    ul {
+      margin: 4px 0 8px 18px;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CABECALHO -->
+  <div class="header-banner">
+    <div class="header-top">
+      <span>Universidade Tecnológica Federal do Paraná (UTFPR)</span>
+      <span>PPGCA-CT / PPGCC-PG • 2026/2</span>
+    </div>
+    <h1 class="header-title">Projeto Inicial (PI) — Sistemas Multiagentes</h1>
+    <p class="header-sub">Walkers Competitivos com Alvos de Valores Distintos e Dois Agentes Guardiões em Grid 2D (MASPY)</p>
+  </div>
+
+  <div class="meta-bar">
+    <div><strong>Disciplina:</strong> Sistemas Multiagentes — Profa. Dra. Celia Ghedini Ralha</div>
+    <div><strong>Entrega:</strong> Especificação PEAS, Tipos de Agentes e Modelagem Prometheus</div>
+  </div>
+
+  <!-- 1. VISAO GERAL -->
+  <h2>1. Descrição do Problema e Extensão Proposta</h2>
+  <p>
+    Partindo do exemplo base <em>Navigation on 2D Grid</em> do framework <strong>MASPY</strong> (<code>maspy-ml</code>), este projeto modela e implementa um ambiente competitivo em um grid bidimensional com paredes ocultas e <strong>dois alvos de valores distintos</strong> (padrão: <code>10</code> e <code>50</code>). Múltiplos agentes <strong>Walker</strong> são posicionados aleatoriamente sem conhecimento prévio das paredes e competem para maximizar sua pontuação capturando os alvos disponíveis.
+  </p>
+  <p>
+    Para enriquecer a dinâmica multiagente mantendo uma arquitetura minimalista e 100% aderente às primitivas nativas do MASPY (<code>Environment</code>, <code>Percept</code> com filtro de grupos e <code>Channel</code> KQML), introduziu-se um segundo tipo legítimo de agente situado no grid: o <strong>Guardião</strong>, instanciado em dupla (<code>Guardiao_1</code> e <code>Guardiao_2</code>). Enquanto os Walkers atuam orientados à utilidade e planejamento de rota (A*), os <strong>2 Guardiões</strong> patrulham em lados diametralmente opostos o perímetro do alvo de maior valor (<code>50</code>) e interceptam Walkers próximos, devolvendo-os à origem e criando um dilema real de <em>recompensa versus risco e distância</em>.
+  </p>
+
+  <!-- 2. PEAS -->
+  <h2>2. Especificação do Ambiente de Tarefa (PEAS)</h2>
+
+  <h3>2.1 Tabelas PEAS por Papel de Agente</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 22%;">Component</th>
+        <th>Walker Agent (1..N) — Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Performance Measure</strong></td>
+        <td>Maximizar a soma dos valores dos alvos capturados (ex.: <code>50</code> e <code>10</code>), minimizando o número de passos executados e o número de interceptações sofridas pelos 2 Guardiões.</td>
+      </tr>
+      <tr>
+        <td><strong>Environment</strong></td>
+        <td>Grid 2D discreto (<code>Arena</code>) com paredes fixas ocultas, 2 alvos de valores distintos e outros agentes ativos (Walkers rivais e 2 Guardiões), com características: <strong>partially observable; deterministic</strong> (transições de ação, com inicialização estocástica); <strong>sequential; dynamic; discrete; and multi-agent</strong> (competitivo).</td>
+      </tr>
+      <tr>
+        <td><strong>Actuators</strong></td>
+        <td>Atuadores físicos na <code>Arena</code>: <code>mover_walker(direction)</code> (<code>up</code>, <code>down</code>, <code>left</code>, <code>right</code>, <code>stay</code>), <code>reivindicar_alvo(x, y)</code> e <code>confirmar_alerta_interceptacao()</code>; envio de mensagens KQML via <code>broadcast</code> no canal (<code>alvo_capturado</code> e <code>encerrar</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>Sensors</strong></td>
+        <td>Percepções filtradas por grupo (<code>filter_perceptions</code> com foco em <code>[self.my_name, "publico"]</code>): coordenada <code>agt_position(x, y)</code>, alvos <code>alvo(x, y, valor, dono)</code>, posições <code>guardiao_pos(g_id, gx, gy)</code>, sensores privados <code>sobre_alvo(tx, ty, valor)</code> e <code>alerta_interceptacao(n)</code>, retorno físico de colisão em parede e mensagens no <code>Channel</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 22%;">Component</th>
+        <th>Guardião Agent (2 instâncias: G1 e G2) — Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Performance Measure</strong></td>
+        <td>Maximizar o número de interceptações de Walkers invasores no perímetro do alvo de maior valor e retardar sua captura por meio de ronda coordenada em lados opostos do anel.</td>
+      </tr>
+      <tr>
+        <td><strong>Environment</strong></td>
+        <td>Mesmo grid 2D (<code>Arena</code>), atuando exclusivamente no anel de patrulha (distância de Manhattan 1 a 2) ao redor do alvo de maior valor: <strong>partially observable; deterministic; sequential; dynamic; discrete; and multi-agent</strong>.</td>
+      </tr>
+      <tr>
+        <td><strong>Actuators</strong></td>
+        <td>Atuador puramente físico <code>mover_guardiao(direction)</code> (desloca o Guardião 1 célula na direção decidida pelo seu plano BDI, sem lógica decisória no <code>Environment</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>Sensors</strong></td>
+        <td>Sensores BDI na <code>Arena</code>: detecção reflexa privada <code>walker_adjacente(w_id, wx, wy)</code> (raio &le; 2), própria posição <code>agt_position(gx, gy)</code>, posições públicas <code>guardiao_pos</code>, células livres <code>anel_patrulha</code>, sinal <code>alvo_protegido_capturado</code> e mensagem <code>encerrar</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>2.2 Classificação Detalhada das Propriedades do Ambiente</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 26%;">Dimensão</th>
+        <th style="width: 24%;">Classificação</th>
+        <th>Justificativa no Domínio</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Observabilidade</strong></td>
+        <td><em>Partially Observable</em></td>
+        <td>As paredes pertencem ao grupo <code>"oculto"</code> no <code>Environment</code>; os Walkers não enxergam o labirinto nem a posição dos Walkers rivais, descobrindo obstáculos apenas ao colidir.</td>
+      </tr>
+      <tr>
+        <td><strong>Determinismo</strong></td>
+        <td><em>Deterministic</em> (regras) / <em>Stochastic</em> (sorteio inicial)</td>
+        <td>Dado o estado exato do grid, o efeito de cada movimento e da validação atômica de captura (protegida por <code>RLock</code>) é determinístico; apenas a geração inicial do mapa é estocástica, mas sob a perspectiva individual de cada agente há incerteza causada pelas ações simultâneas dos demais.</td>
+      </tr>
+      <tr>
+        <td><strong>Episódico vs. Sequencial</strong></td>
+        <td><em>Sequential</em></td>
+        <td>Cada ação altera a posição futura do agente, o mapa parcial na <em>Belief Base</em> (<code>Path_Graph</code> / <code>Wall_Set</code>) e o risco acumulado em <code>vezes_interceptado</code>, impactando todas as decisões subsequentes até o fim da partida.</td>
+      </tr>
+      <tr>
+        <td><strong>Estático vs. Dinâmico</strong></td>
+        <td><em>Dynamic</em></td>
+        <td>Enquanto um Walker delibera em sua thread, os 2 Guardiões se deslocam pelo perímetro e Walkers concorrentes podem capturar o alvo visado a qualquer instante.</td>
+      </tr>
+      <tr>
+        <td><strong>Discreto vs. Contínuo</strong></td>
+        <td><em>Discrete</em></td>
+        <td>Espaço de coordenadas inteiras <em>W × H</em>, conjunto finito de 5 ações de movimento e ciclos discretos de raciocínio BDI.</td>
+      </tr>
+      <tr>
+        <td><strong>Número de Agentes</strong></td>
+        <td><em>Multi-agent</em> (Competitivo)</td>
+        <td><em>N</em> Walkers disputam recursos exclusivos (cada alvo só pode ter um único <code>dono</code>) enquanto 2 Guardiões (<code>Guardiao_1</code> e <code>Guardiao_2</code>) atuam de forma antagônica protegendo o alvo principal.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 3. TIPOS DE AGENTES -->
+  <h2 class="page-break">3. Definição dos Tipos de Agentes (Russell &amp; Norvig)</h2>
+  <p>
+    A tabela abaixo posiciona a arquitetura desenvolvida frente às cinco categorias clássicas de agentes inteligentes:
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 24%;">Categoria</th>
+        <th style="width: 22%;">Presença no Projeto</th>
+        <th>Análise e Mapeamento na Implementação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Simple Reflex Agent</strong></td>
+        <td><span class="badge b-active">Implementado: 2 Guardiões</span></td>
+        <td><code>Guardiao_1</code> e <code>Guardiao_2</code> não possuem crenças internas de estado nem algoritmos de busca; cada regra condição-ação é um plano <code>@pl</code> distinto para <code>Goal("patrulhar")</code> selecionado pelo motor BDI do MASPY: <code>interceptar</code> (se há <code>walker_adjacente</code>), <code>rondar</code> (avanço horário em <code>anel_patrulha</code>) ou <code>encerrar_ronda</code> (se <code>alvo_protegido_capturado</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>Reflex Agent with State</strong></td>
+        <td><span class="badge b-partial">Subsumido no Walker</span></td>
+        <td>Não há um agente exclusivamente reativo com estado isolado, mas o <code>Walker</code> mantém modelo explícito do mundo na <em>Belief Base</em> do MASPY (<code>Belief("Path_Graph")</code>, <code>Belief("Wall_Set")</code> atualizada pelo evento <code>registrar_parede</code> e <code>Belief("vezes_interceptado")</code>) frente à observabilidade parcial.</td>
+      </tr>
+      <tr>
+        <td><strong>Goal-based Agent</strong></td>
+        <td><span class="badge b-active">Implementado: Walker</span></td>
+        <td>O <code>Walker</code> decompõe <code>Goal("agir")</code> em planos concorrentes selecionados por contexto (<code>capturar</code>, <code>reavaliar_risco</code>, <code>escolher_alvo</code> e <code>navegar</code>), empregando busca heurística <strong>A* com flanqueio</strong> até <code>Belief("alvo_escolhido")</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Utility-based Agent</strong></td>
+        <td><span class="badge b-active">Implementado: Walker</span></td>
+        <td>No plano <code>escolher_alvo</code> (ativado sob contexto <code>~Belief("alvo_escolhido")</code>), o <code>Walker</code> avalia uma função explícita de utilidade calibrada para arbitrar racionalmente entre o alvo protegido (<code>50</code>) e o desprotegido (<code>10</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>Learning Agent</strong></td>
+        <td><span class="badge b-none">Não utilizado</span></td>
+        <td>Optou-se por planejamento online A* com utilidade adaptativa em vez de Q-learning pré-treinado, pois os alvos são consumidos dinamicamente durante uma única corrida competitiva sem repetição de episódios sobre o mesmo mapa.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="formula-box">
+    <strong>Função de Utilidade Calibrada e Custo de Flanqueio do Walker (frente aos 2 Guardiões):</strong>
+    <div class="formula-math">
+      U(a) = valor(a) &minus; 1,1 &middot; manhattan(pos, a) &minus; risco(a, pos, pos<sub>G1</sub>, pos<sub>G2</sub>)
+    </div>
+    <div>
+      Onde <code>risco = 0</code> para o alvo desprotegido (<code>10</code>) e, para o alvo protegido pelos 2 Guardiões (<code>50</code>), vale <code>8,0 + 36,0 &middot; vezes_interceptado</code> (acrescido de <code>+4,0</code> se <code>min<sub>i&in;{1,2}</sub> d(pos, G<sub>i</sub>) &le; 2</code>). Com essa calibração, todos os Walkers iniciam disputando o alvo <code>50</code> (<code>U(50) &approx; 35 &gg; U(10) &approx; 1</code>), mas basta <strong>uma interceptação</strong> para inverter a utilidade esperada (<code>U(50) &approx; &minus;0,6 &lt; U(10) &approx; 1,2</code>), fazendo o plano <code>escolher_alvo</code> migrar autonomamente para o alvo <code>10</code> enquanto o <code>50</code> ainda está em disputa. No plano <code>navegar</code>, células ocupadas ou adjacentes a <code>G1/G2</code> recebem penalidade A* (<code>+6,0</code> e <code>+2,0</code>), induzindo flanqueio pelas brechas.
+    </div>
+  </div>
+
+  <!-- QUEBRA DE PAGINA PARA MODELAGEM PROMETHEUS -->
+  <div class="page-break"></div>
+
+  <!-- 4. MODELAGEM PROMETHEUS -->
+  <h2>4. Modelagem Metodológica Prometheus (PDT 3.2b)</h2>
+  <p>
+    A especificação arquitetural e detalhada foi construída nativamente na ferramenta oficial <strong>Prometheus Design Tool (PDT 3.2b)</strong> (arquivo de projeto <code>pdt/Walker_Guardiao_MASPY.pd</code>, validado sem alertas no <em>Crosscheck</em> de Projeto Arquitetural e Detalhado). As Figuras 1, 2 e 3 foram exportadas diretamente pelo PDT 3.2b.
+  </p>
+
+  <!-- FIGURA 1: GOAL OVERVIEW + SYSTEM OVERVIEW NATIVOS DO PDT 3.2b -->
+  <div class="figure-card" style="padding: 10px 14px 8px 14px; margin: 6px 0 10px 0;">
+    <img src="../pdt/pdt_goal_overview.png" alt="Goal Overview Diagram PDT 3.2b" style="width: 96%; max-height: 115px; object-fit: contain; display: block; margin: 0 auto 8px auto;" />
+    <hr style="border: 0; border-top: 1px dashed #cbd5e1; margin: 6px 0 8px 0;" />
+    <img src="../pdt/pdt_system_overview.png" alt="System Overview Diagram PDT 3.2b" style="width: 86%; max-height: 235px; object-fit: contain; display: block; margin: 0 auto;" />
+    <div class="figure-caption">
+      Figura 1 — <em>Goal Overview Diagram</em> (topo) e <em>System Overview Diagram</em> (base) gerados nativamente no <strong>PDT 3.2b</strong> (<code>Walker_Guardiao_MASPY.pd</code>).
+    </div>
+  </div>
+
+  <!-- FIGURA 2: AGENT OVERVIEW DIAGRAMS (WALKER E GUARDIAO) NATIVOS DO PDT 3.2b -->
+  <div style="display: grid; grid-template-columns: 1.18fr 0.92fr; gap: 10px; margin: 6px 0 10px 0;">
+    <div class="figure-card" style="padding: 8px 10px 6px 10px; margin: 0;">
+      <img src="../pdt/pdt_walker_overview.png" alt="Walker Agent Overview Diagram PDT 3.2b" style="width: 100%; max-height: 225px; object-fit: contain; display: block; margin: 0 auto;" />
+      <div class="figure-caption">
+        Figura 2a — <em>Agent Overview Diagram</em> do <code>Walker</code> no PDT 3.2b (seleção BDI entre <code>escolher_alvo</code>, <code>navegar</code>, <code>capturar</code>, <code>reavaliar_risco</code>, evento <code>registrar_parede</code> e crenças <code>Path_Graph</code>, <code>Wall_Set</code>, <code>vezes_interceptado</code>, <code>alvo_escolhido</code>).
+      </div>
+    </div>
+    <div class="figure-card" style="padding: 8px 10px 6px 10px; margin: 0;">
+      <img src="../pdt/pdt_guardiao_overview.png" alt="Guardiao Agent Overview Diagram PDT 3.2b" style="width: 100%; max-height: 225px; object-fit: contain; display: block; margin: 0 auto;" />
+      <div class="figure-caption">
+        Figura 2b — <em>Agent Overview Diagram</em> do <code>Guardiao</code> no PDT 3.2b (<em>Simple Reflex</em> sem memória interna: planos <code>interceptar</code>, <code>rondar</code> e <code>encerrar_ronda</code> sobre <code>mover_guardiao</code>).
+      </div>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- 4.1 DESCRITORES DE AGENTES PROMETHEUS -->
+  <h3>4.1 Especificação Estrutural dos Agentes (Agent Descriptors)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 17%;">Agente</th>
+        <th style="width: 24%;">Objetivos &amp; Crenças</th>
+        <th style="width: 33%;">Planos BDI Selecionados por Contexto (<code>@pl</code>)</th>
+        <th>Interação (Ambiente &amp; Canal)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Walker</strong><br/>(<em>N</em> instâncias)</td>
+        <td>
+          <strong>Goal:</strong> <code>agir</code><br/>
+          <strong>Beliefs:</strong> <code>Path_Graph</code>, <code>Wall_Set</code>, <code>vezes_interceptado</code>, <code>alvo_escolhido</code>
+        </td>
+        <td>
+          <code>capturar</code> (ctx: <code>sobre_alvo</code>);<br/>
+          <code>reavaliar_risco</code> (ctx: <code>alerta_interceptacao</code>);<br/>
+          <code>escolher_alvo</code> (ctx: <code>~alvo_escolhido</code>);<br/>
+          <code>navegar</code> (ctx: <code>alvo_escolhido</code>, A* flanqueio);<br/>
+          <code>registrar_parede</code>, <code>on_alvo_capturado</code>, <code>encerrar</code>.
+        </td>
+        <td>
+          <strong>Foco:</strong> <code>[my_name, "publico"]</code><br/>
+          <strong>Atuadores:</strong> <code>mover_walker</code>, <code>reivindicar_alvo</code>, <code>confirmar_alerta_interceptacao</code><br/>
+          <strong>KQML:</strong> <code>broadcast tell</code> (<code>alvo_capturado</code>, <code>encerrar</code>)
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Guardião</strong><br/>(2 instâncias: <code>G1</code> e <code>G2</code>)</td>
+        <td>
+          <strong>Goal:</strong> <code>patrulhar</code><br/>
+          <strong>Beliefs internas:</strong> nenhuma (<em>Simple Reflex</em> puro sem estado)
+        </td>
+        <td>
+          <code>encerrar_ronda</code> (ctx: <code>alvo_protegido_capturado</code>);<br/>
+          <code>interceptar</code> (ctx: <code>walker_adjacente &amp; agt_position</code>);<br/>
+          <code>rondar</code> (ctx: <code>agt_position &amp; anel_patrulha</code>);<br/>
+          <code>encerrar</code> (evento KQML: <code>stop_cycle()</code>).
+        </td>
+        <td>
+          <strong>Foco:</strong> <code>[my_name, "publico"]</code><br/>
+          <strong>Atuador físico:</strong> <code>mover_guardiao(dir)</code><br/>
+          <strong>KQML:</strong> escuta <code>Belief("encerrar")</code>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- FIGURA 3: CONEXAO MASPY (ESTILO SLIDE 11) + MULTIPLOS PLANOS BDI -->
+  <h3 style="margin: 8px 0 4px 0;">4.2 Diagrama de Interação e Seleção de Planos BDI no MASPY</h3>
+  <div class="figure-card" style="padding: 8px 12px 6px 12px; margin: 6px 0 10px 0;">
+    <svg viewBox="0 0 820 238" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+      <defs>
+        <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e293b" />
+        </marker>
+      </defs>
+
+      <!-- Arena Environment Box -->
+      <rect x="16" y="14" width="234" height="208" rx="6" fill="#f8fafc" stroke="#0f172a" stroke-width="1.6"/>
+      <text x="236" y="32" text-anchor="end" font-size="11.2" font-weight="700" fill="#0f172a">Arena (Environment)</text>
+
+      <rect x="30" y="42" width="204" height="27" fill="#ffffff" stroke="#334155" stroke-width="1.2"/>
+      <text x="132" y="59" text-anchor="middle" font-size="9.4" fill="#0f172a">alvo, info_arena, anel_patrulha [publico]</text>
+
+      <rect x="30" y="75" width="204" height="27" fill="#ffffff" stroke="#334155" stroke-width="1.2"/>
+      <text x="132" y="92" text-anchor="middle" font-size="9.4" fill="#0f172a">guardiao_pos(G, Gx, Gy) [publico]</text>
+
+      <rect x="30" y="108" width="204" height="27" fill="#ffffff" stroke="#334155" stroke-width="1.2"/>
+      <text x="132" y="125" text-anchor="middle" font-size="9.2" fill="#0f172a">agt_position, sobre_alvo, walker_adj [priv]</text>
+
+      <rect x="30" y="141" width="204" height="25" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.1" stroke-dasharray="4 3"/>
+      <text x="132" y="157" text-anchor="middle" font-size="9.4" fill="#64748b">wall(Wx, Wy) [oculto]</text>
+
+      <text x="132" y="187" text-anchor="middle" font-size="9.1" font-weight="600" fill="#0f766e">Atuadores fisicos (RLock):</text>
+      <text x="132" y="201" text-anchor="middle" font-size="8.8" fill="#0f766e">mover_walker / mover_guardiao / reivindicar</text>
+
+      <!-- Walker Circle -->
+      <circle cx="386" cy="92" r="34" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.8"/>
+      <text x="386" y="90" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e3a8a">Walker</text>
+      <text x="386" y="104" text-anchor="middle" font-size="9" fill="#1d4ed8">1..N</text>
+
+      <!-- Guardiao Circle -->
+      <circle cx="386" cy="186" r="34" fill="#fff7ed" stroke="#c2410c" stroke-width="1.8"/>
+      <text x="386" y="183" text-anchor="middle" font-size="10.2" font-weight="700" fill="#7c2d12">Guardião</text>
+      <text x="386" y="196" text-anchor="middle" font-size="8.2" fill="#c2410c">1..2 (G1, G2)</text>
+
+      <!-- Percepts & Actions connections -->
+      <line x1="250" y1="82" x2="350" y2="82" stroke="#1e293b" stroke-width="1.4" marker-end="url(#arr2)"/>
+      <text x="300" y="75" text-anchor="middle" font-size="8.8" fill="#334155">perceive()</text>
+
+      <line x1="350" y1="104" x2="250" y2="104" stroke="#1e293b" stroke-width="1.4" marker-end="url(#arr2)"/>
+      <text x="300" y="117" text-anchor="middle" font-size="8.8" fill="#0f766e">mover_walker / reivindicar</text>
+
+      <line x1="250" y1="176" x2="350" y2="176" stroke="#1e293b" stroke-width="1.4" marker-end="url(#arr2)"/>
+      <text x="300" y="169" text-anchor="middle" font-size="8.6" fill="#334155">walker_adjacente / anel</text>
+
+      <line x1="350" y1="196" x2="250" y2="196" stroke="#1e293b" stroke-width="1.4" marker-end="url(#arr2)"/>
+      <text x="300" y="210" text-anchor="middle" font-size="8.8" fill="#9a3412">mover_guardiao(dir)</text>
+
+      <!-- Channel KQML -->
+      <line x1="386" y1="126" x2="386" y2="150" stroke="#4f46e5" stroke-width="1.4" stroke-dasharray="4 2" marker-end="url(#arr2)"/>
+      <text x="420" y="142" font-size="8.6" fill="#4338ca">Channel</text>
+
+      <!-- Right side: Beliefs, Goals & Competing Context Plans -->
+      <ellipse cx="552" cy="30" rx="76" ry="16" fill="#fefce8" stroke="#854d0e" stroke-width="1.3"/>
+      <text x="552" y="34" text-anchor="middle" font-size="9.1" font-weight="600" fill="#422006">Path_Graph, Wall_Set, risco</text>
+
+      <ellipse cx="715" cy="30" rx="56" ry="16" fill="#f0fdf4" stroke="#166534" stroke-width="1.3"/>
+      <text x="715" y="34" text-anchor="middle" font-size="9.4" font-weight="600" fill="#052e16">Goal: agir</text>
+
+      <rect x="490" y="56" width="314" height="32" rx="4" fill="#ffffff" stroke="#1e293b" stroke-width="1.3"/>
+      <text x="647" y="70" text-anchor="middle" font-size="9.1" font-weight="700" fill="#0f172a">Planos &lt;escolher_alvo : ~alvo_escolhido&gt; | &lt;reavaliar_risco&gt;</text>
+      <text x="647" y="82" text-anchor="middle" font-size="8.6" fill="#475569">Avalia U(a): migra autonomamente 50 &rarr; 10 se barrado por G1/G2</text>
+
+      <rect x="490" y="94" width="314" height="32" rx="4" fill="#ffffff" stroke="#1e293b" stroke-width="1.3"/>
+      <text x="647" y="108" text-anchor="middle" font-size="9.1" font-weight="700" fill="#0f172a">Planos &lt;navegar : alvo_escolhido&gt; | &lt;capturar : sobre_alvo&gt;</text>
+      <text x="647" y="120" text-anchor="middle" font-size="8.6" fill="#475569">A* com flanqueio + evento registrar_parede (Wall_Set) + broadcast</text>
+
+      <rect x="490" y="132" width="314" height="24" rx="4" fill="#ffffff" stroke="#1e293b" stroke-width="1.3"/>
+      <text x="647" y="148" text-anchor="middle" font-size="9" font-weight="600" fill="#0f172a">Plano &lt;on_alvo_capturado : broadcast rival&gt; &rarr; Descarta alvo levado</text>
+
+      <rect x="490" y="168" width="314" height="44" rx="4" fill="#fff7ed" stroke="#9a3412" stroke-width="1.3"/>
+      <text x="647" y="183" text-anchor="middle" font-size="9.2" font-weight="700" fill="#7c2d12">Goal("patrulhar") em G1 e G2 — Selecao BDI por Contexto:</text>
+      <text x="647" y="196" text-anchor="middle" font-size="8.7" fill="#9a3412">&lt;interceptar : walker_adjacente&gt; vs. &lt;rondar : anel_patrulha&gt;</text>
+      <text x="647" y="207" text-anchor="middle" font-size="8.5" fill="#9a3412">vs. &lt;encerrar_ronda : alvo_protegido_capturado&gt; &rarr; mover_guardiao(dir)</text>
+
+      <line x1="414" y1="72" x2="480" y2="34" stroke="#334155" stroke-width="1.2"/>
+      <line x1="418" y1="80" x2="660" y2="34" stroke="#334155" stroke-width="1.2"/>
+      <line x1="420" y1="90" x2="490" y2="72" stroke="#334155" stroke-width="1.2"/>
+      <line x1="420" y1="98" x2="490" y2="110" stroke="#334155" stroke-width="1.2"/>
+      <line x1="418" y1="108" x2="490" y2="144" stroke="#334155" stroke-width="1.2"/>
+      <line x1="420" y1="186" x2="490" y2="188" stroke="#9a3412" stroke-width="1.2"/>
+    </svg>
+    <div class="figure-caption">
+      Figura 3 — Arquitetura BDI pura no MASPY: sensores e atuadores físicos na <code>Arena</code> e seleção de planos por contexto em <code>Walker</code> e <code>Guardiao</code>.
+    </div>
+  </div>
+
+  <!-- 5. IMPLEMENTACAO E EVIDENCIA -->
+  <h2 style="margin: 10px 0 5px 0;">5. Organização do Código MASPY, Projeto PDT e Evidência Experimental</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 24%;">Arquivo</th>
+        <th>Responsabilidade na Implementação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>arena_env.py</code></td>
+        <td>Classe <code>Arena(Environment)</code> puramente física: geração do grid conectado, sensores filtrados por grupo (<code>sobre_alvo</code>, <code>walker_adjacente</code>, <code>alerta_interceptacao</code>, <code>anel_patrulha</code>) e atuadores atômicos sob <code>RLock</code> (<code>mover_walker</code>, <code>mover_guardiao</code>, <code>reivindicar_alvo</code>).</td>
+      </tr>
+      <tr>
+        <td><code>agentes.py</code></td>
+        <td>Deliberação BDI pura: <code>Guardiao(Agent)</code> sem estado com 3 planos concorrentes (<code>interceptar</code>, <code>rondar</code>, <code>encerrar_ronda</code>) e <code>Walker(Agent)</code> com 4 planos concorrentes em <code>Goal("agir")</code> + planos reativos (<code>registrar_parede</code> em <code>Wall_Set</code>, <code>on_alvo_capturado</code>, <code>encerrar</code>) e <code>astar_flanqueio</code> sobre <code>Path_Graph</code>.</td>
+      </tr>
+      <tr>
+        <td><code>Pygame_Screens.py</code></td>
+        <td>Interface visual baseada nas telas de Walkers do MASPY (<code>MenuScreen</code> e <code>MapVisualizer</code>), com controles de pausa, velocidade (delay inicial de <code>0.8s</code>) e destaque dos 2 Guardiões (<code>G1</code> e <code>G2</code>).</td>
+      </tr>
+      <tr>
+        <td><code>main.py</code></td>
+        <td>Instanciação de <code>NUM_GUARDIOES = 2</code> e <em>N</em> Walkers (<code>DELAY_INICIAL = 0.8</code>), com execução gráfica (<code>python main.py</code>) ou em terminal (<code>python main.py --sem-gui</code>).</td>
+      </tr>
+      <tr>
+        <td><code>pdt/Walker_Guardiao_MASPY.pd</code></td>
+        <td>Projeto nativo do <strong>PDT 3.2b</strong> validado sem alertas no <em>Crosscheck</em> contendo <em>Goal Overview</em>, <em>System Overview</em>, <em>Agent Overviews</em> (<code>Walker</code> e <code>Guardiao</code>) e descritores completos (<code>pdt/abrir_pdt.bat</code>).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    <strong>Trecho real de execução validada (<code>python main.py --sem-gui</code>):</strong> evidencia no próprio log do MASPY (i) a deliberação BDI dos Guardiões alternando entre <code>plano rondar</code>, <code>plano interceptar</code> e <code>plano encerrar_ronda</code>, (ii) o evento <code>plano registrar_parede</code> gravando obstáculos em <code>Wall_Set</code> e (iii) a migração autônoma de <code>Walker_4</code> do alvo <code>50</code> para o alvo <code>10</code> (<code>U=-0.6</code> vs. <code>U=1.2</code>) imediatamente após ser interceptado, antes mesmo de <code>Walker_2</code> capturar o alvo <code>50</code>:
+  </p>
+  <pre>Environment:Arena&gt; Alvo de valor 10 criado em (1, 0) | Alvo de valor 50 criado em (4, 3)
+Environment:Arena&gt; Guardiao_1 posicionado na patrulha em (3, 2) | Guardiao_2 em (5, 4) (protegendo (4, 3))
+Agent:Guardiao_1&gt; plano rondar: patrulhando anel (3, 2) -&gt; (4, 2) (right)
+Agent:Guardiao_2&gt; plano rondar: patrulhando anel (5, 4) -&gt; (4, 4) (left)
+Agent:Walker_4&gt; plano escolher_alvo: selecionou alvo 50 em (4, 3) (alvo 50: U=35.4, alvo 10: U=1.2)
+Agent:Walker_2&gt; plano escolher_alvo: selecionou alvo 50 em (4, 3) (alvo 50: U=35.4, alvo 10: U=1.2)
+Agent:Walker_1&gt; plano registrar_parede: parede (6, 4) gravada em Wall_Set
+Agent:Guardiao_1&gt; plano interceptar: invasor Walker_4 detectado em (5, 2) -&gt; mover_guardiao(right)
+Environment:Arena&gt; Guardiao_1 interceptou Walker_4 em (5, 2)! Walker_4 voltou para (8, 1)
+Agent:Walker_4&gt; plano reavaliar_risco: barrado (1x)! Recalculando utilidade dos alvos...
+Agent:Walker_4&gt; plano escolher_alvo: MIGROU do alvo 50 para alvo 10 em (1, 0) (alvo 50: U=-0.6, alvo 10: U=1.2)
+Environment:Arena&gt; Walker_2 CAPTUROU o alvo de valor 50 em (4, 3)! (restam 1)
+Agent:Walker_2&gt; plano capturar: reivindicou alvo 50 em (4, 3)!
+Channel:default&gt; Walker_2 broadcasting tell:Belief alvo_capturado((4, 3, 50, 'Walker_2'))[Walker_2]
+Agent:Guardiao_1&gt; plano encerrar_ronda: alvo protegido (4, 3) ja foi capturado; encerrando patrulha.
+Agent:Guardiao_2&gt; plano encerrar_ronda: alvo protegido (4, 3) ja foi capturado; encerrando patrulha.
+Agent:Walker_4&gt; plano on_alvo_capturado: rival Walker_2 levou alvo 50; mantendo foco no alvo 10
+Environment:Arena&gt; Walker_4 CAPTUROU o alvo de valor 10 em (1, 0)! (restam 0)
+=== RESULTADO FINAL === Walker_2=50pts (0 intercept.) | Walker_4=10pts (1 intercept.) | Walker_1=0pts | Walker_3=0pts</pre>
+
+  <p style="font-size: 8.4pt; color: #64748b; margin: 4px 0 0 0;">
+    <strong>Referências:</strong> Russell, S. &amp; Norvig, P. <em>Artificial Intelligence: A Modern Approach</em> (PEAS &amp; Agent Types); Padgham, L. &amp; Winikoff, M. <em>Prometheus: A Methodology for Developing Intelligent Agents</em> (AAMAS'02); LaCA-IS/UTFPR — <em>MASPY Framework Wiki: Navigation on 2D Grid</em>.
+  </p>
+
+</body>
+</html>

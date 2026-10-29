@@ -1,0 +1,1949 @@
+<?xml version="1.0"?>
+
+<jacob version="3.0">
+
+<object type="PrometheusProject" id="0">
+    <field name="projectData">
+	<object type="ProjectData" id="1">
+	    <field name="name">Walkers e 2 Guardioes em Grid 2D — BDI Puro (MASPY)</field>
+	    <field name="description">Competicao BDI pura em Grid 2D com 2 alvos (10 e 50), Walkers (selecao de planos @pl por contexto + Path_Graph/Wall_Set + utilidade calibrada + A*) e 2 Guardioes (Simple Reflex sem estado com selecao de planos interceptar/rondar/encerrar_ronda).</field>
+	    <field name="version">2.0</field>
+	    <field name="fileNameLastSavedAs">Walker_Guardiao_MASPY.pd</field>
+	    <field name="filePathLastSavedIn">C:\Users\Hudson\.gemini\antigravity\scratch\walker-guardiao-maspy\pdt</field>
+	    <field name="author">UTFPR - Sistemas Multiagentes (2026/2)</field>
+	    <field name="applicationVersion">3.2b</field>
+	</object>
+    </field>
+    <field name="diagramSettings"><list>
+	<object type="DiagramSettings" id="2">
+	    <field name="diagramId">
+		<object type="DiagramId" id="3">
+		    <field name="stringId">Goal Overview</field>
+		</object>
+	    </field>
+	    <field name="entitySettings"><list>
+		<object type="DiagramEntitySetting" id="4">
+		    <field name="entity">
+			<object type="Goal" id="5">
+			    <base type="Entity">
+				<field name="name">Maximizar pontuacao nos alvos</field>
+				<field name="uniqueId">50</field>
+			    </base>
+
+			    <field name="subGoals"><list>
+				<object type="Goal" id="6">
+				    <base type="Entity">
+					<field name="name">Selecionar alvo por utilidade U(a)</field>
+					<field name="uniqueId">51</field>
+				    </base>
+
+				</object>
+
+				<object type="Goal" id="7">
+				    <base type="Entity">
+					<field name="name">Navegar A* e mapear Wall_Set</field>
+					<field name="uniqueId">52</field>
+				    </base>
+
+				</object>
+				</list>
+			    </field>
+			</object>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="8">
+			    <field name="x">150</field>
+			    <field name="y">35</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="9">
+		    <field name="entity">
+			<object ref="6"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="10">
+			    <field name="x">20</field>
+			    <field name="y">165</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="11">
+		    <field name="entity">
+			<object ref="7"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="12">
+			    <field name="x">305</field>
+			    <field name="y">165</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="13">
+		    <field name="entity">
+			<object type="Goal" id="14">
+			    <base type="Entity">
+				<field name="name">Proteger perimetro do alvo maior</field>
+				<field name="uniqueId">53</field>
+			    </base>
+
+			    <field name="subGoals"><list>
+				<object type="Goal" id="15">
+				    <base type="Entity">
+					<field name="name">Rondar lados opostos (G1 e G2)</field>
+					<field name="uniqueId">54</field>
+				    </base>
+
+				</object>
+
+				<object type="Goal" id="16">
+				    <base type="Entity">
+					<field name="name">Interceptar Walker adjacente</field>
+					<field name="uniqueId">55</field>
+				    </base>
+
+				</object>
+				</list>
+			    </field>
+			</object>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="17">
+			    <field name="x">620</field>
+			    <field name="y">35</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="18">
+		    <field name="entity">
+			<object ref="15"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="19">
+			    <field name="x">530</field>
+			    <field name="y">165</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="20">
+		    <field name="entity">
+			<object ref="16"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="21">
+			    <field name="x">775</field>
+			    <field name="y">165</field>
+			</object>
+		    </field>
+		</object>
+		</list>
+	    </field>
+	</object>
+
+	<object type="DiagramSettings" id="22">
+	    <field name="diagramId">
+		<object type="DiagramId" id="23">
+		    <field name="stringId">au.edu.rmit.cs.prometheus.gui.diagram.agentoverview.AgentOverviewDiagramModel(id#10)</field>
+		</object>
+	    </field>
+	    <field name="entitySettings"><list>
+		<object type="DiagramEntitySetting" id="24">
+		    <field name="entity">
+			<object type="Plan" id="25">
+			    <base type="Entity">
+				<field name="name">encerrar_guardiao</field>
+				<field name="description">Encerra patrulha (stop_cycle) ao receber mensagem encerrar.</field>
+				<field name="uniqueId">48</field>
+			    </base>
+
+			    <field name="incomingMessages"><list>
+				<object type="MessageDistributionPair" id="26">
+				    <base type="Entity">
+					<field name="name">planMessagePair-49</field>
+					<field name="uniqueId">49</field>
+				    </base>
+
+				    <field name="type">
+					<object type="Message" id="27">
+					    <base type="Interaction">
+						<base type="Entity">
+						    <field name="name">encerrar</field>
+						    <field name="uniqueId">13</field>
+						</base>
+
+					    </base>
+
+					    <field name="distribution"><list>
+						<object type="MessageDistributionPair" id="28">
+						    <base type="Entity">
+							<field name="name">systemDiagramPair-14</field>
+							<field name="uniqueId">14</field>
+						    </base>
+
+						    <field name="type">
+							<object ref="27"/>
+						    </field>
+						    <field name="toEntities"><list>
+							<object type="Agent" id="29">
+							    <base type="Entity">
+								<field name="name">Guardiao</field>
+								<field name="description">Simple Reflex Agent em BDI puro (2 instancias sem estado: G1 e G2): motor BDI seleciona entre os planos interceptar, rondar e encerrar_ronda pelo contexto.</field>
+								<field name="uniqueId">10</field>
+							    </base>
+
+							    <field name="cardinalityMinimum">2</field>
+							    <field name="cardinalityMaximum">2</field>
+							    <field name="lifetime">Enquanto o alvo protegido estiver livre</field>
+							    <field name="initialisation">Posicionados em lados diametralmente opostos do anel de patrulha com Goal(patrulhar), sem memoria interna.</field>
+							    <field name="demise">stop_cycle() no plano encerrar_ronda ou encerrar_guardiao.</field>
+							    <field name="includedPlans"><list>
+								<object type="Plan" id="30">
+								    <base type="Entity">
+									<field name="name">interceptar</field>
+									<field name="description">Regra reflexa prioritaria: avanca sobre o Walker invasor adjacente via mover_guardiao(direcao).</field>
+									<field name="uniqueId">45</field>
+								    </base>
+
+								    <field name="actions"><list>
+									<object type="Action" id="31">
+									    <base type="Interaction">
+										<base type="Entity">
+										    <field name="name">mover_guardiao</field>
+										    <field name="description">Atuador puramente fisico do Guardiao: desloca 1 celula na direcao decidida pelo plano BDI (interceptar ou rondar).</field>
+										    <field name="uniqueId">18</field>
+										</base>
+
+									    </base>
+
+									    <field name="parameters">direction in {up, down, left, right, stay}</field>
+									</object>
+									</list>
+								    </field>
+								    <field name="percepts"><list>
+									<object type="Percept" id="32">
+									    <base type="Interaction">
+										<base type="Entity">
+										    <field name="name">walker_adjacente</field>
+										    <field name="description">Sensor reflexo privado do Guardiao detectando Walker adjacente no raio &lt;= 2.</field>
+										    <field name="uniqueId">6</field>
+										</base>
+
+									    </base>
+
+									    <field name="source">Arena (grupo privado do Guardiao)</field>
+									    <field name="informationCarried">(walker_id, wx, wy)</field>
+									    <field name="frequency">Quando Walker invade adjacencia do perimetro</field>
+									    <field name="agentsResponding"><list>
+										<object ref="29"/>
+										</list>
+									    </field>
+									</object>
+
+									<object type="Percept" id="33">
+									    <base type="Interaction">
+										<base type="Entity">
+										    <field name="name">agt_position</field>
+										    <field name="description">Coordenada individual atual (x, y) do agente na Arena.</field>
+										    <field name="uniqueId">4</field>
+										</base>
+
+									    </base>
+
+									    <field name="source">Arena (grupo privado do agente)</field>
+									    <field name="informationCarried">(x, y)</field>
+									    <field name="frequency">A cada ciclo BDI</field>
+									    <field name="agentsResponding"><list>
+										<object type="Agent" id="34">
+										    <base type="Entity">
+											<field name="name">Walker</field>
+											<field name="description">Utility-based + Goal-based Agent BDI: escolhe entre planos @pl por contexto (capturar, reavaliar_risco, escolher_alvo, navegar), mantem crencas Path_Graph e Wall_Set e migra de 50 para 10 se interceptado.</field>
+											<field name="uniqueId">9</field>
+										    </base>
+
+										    <field name="cardinalityMinimum">1</field>
+										    <field name="cardinalityMaximum">4</field>
+										    <field name="lifetime">Durante toda a partida ate restam == 0</field>
+										    <field name="initialisation">Conecta-se a Arena com foco [my_name, publico], inicializa Belief(Path_Graph), Belief(Wall_Set), Belief(vezes_interceptado) e Goal(agir).</field>
+										    <field name="demise">stop_cycle() ao capturar ultimo alvo ou receber broadcast encerrar.</field>
+										    <field name="includedPlans"><list>
+											<object type="Plan" id="35">
+											    <base type="Entity">
+												<field name="name">escolher_alvo</field>
+												<field name="description">Avalia U(a) = valor - 1.1*dist - risco(8 + 36*vezes_interceptado) e define Belief(alvo_escolhido), migrando de 50 para 10 apos interceptacao.</field>
+												<field name="uniqueId">22</field>
+											    </base>
+
+											    <field name="percepts"><list>
+												<object type="Percept" id="36">
+												    <base type="Interaction">
+													<base type="Entity">
+													    <field name="name">alvo</field>
+													    <field name="description">Estado publico dos 2 alvos de valores distintos (10 e 50) e respectivo dono.</field>
+													    <field name="uniqueId">3</field>
+													</base>
+
+												    </base>
+
+												    <field name="source">Arena (grupo publico)</field>
+												    <field name="informationCarried">(tx, ty, valor, dono)</field>
+												    <field name="frequency">Continuo / mudanca de estado</field>
+												    <field name="agentsResponding"><list>
+													<object ref="34"/>
+													</list>
+												    </field>
+												</object>
+
+												<object ref="33"/>
+
+												<object type="Percept" id="37">
+												    <base type="Interaction">
+													<base type="Entity">
+													    <field name="name">guardiao_pos</field>
+													    <field name="description">Posicoes publicas atuais dos 2 Guardioes (G1 e G2) no anel de patrulha.</field>
+													    <field name="uniqueId">5</field>
+													</base>
+
+												    </base>
+
+												    <field name="source">Arena (grupo publico)</field>
+												    <field name="informationCarried">(id_guardiao, gx, gy)</field>
+												    <field name="frequency">A cada movimento de patrulha</field>
+												    <field name="agentsResponding"><list>
+													<object ref="34"/>
+
+													<object ref="29"/>
+													</list>
+												    </field>
+												</object>
+												</list>
+											    </field>
+											    <field name="data"><list>
+												<object type="DataConnection" id="38">
+												    <base type="Entity">
+													<field name="name">&lt;Prometheus unique entity name au.edu.rmit.cs.prometheus.datamodel.jacob.DataConnection ID=32&gt;</field>
+													<field name="uniqueId">32</field>
+												    </base>
+
+												    <field name="type">
+													<object type="Data" id="39">
+													    <base type="Entity">
+														<field name="name">vezes_interceptado</field>
+														<field name="description">Contador BDI de interceptacoes sofridas por G1/G2 usado no calculo de risco de U(a).</field>
+														<field name="uniqueId">31</field>
+													    </base>
+
+													    <field name="dataType">Belief (int)</field>
+													    <field name="connections"><list>
+														<object ref="38"/>
+														</list>
+													    </field>
+													</object>
+												    </field>
+												    <field name="readingEntities"><list>
+													<object ref="35"/>
+													</list>
+												    </field>
+												    <field name="writingEntities"><list>
+													<object type="Plan" id="40">
+													    <base type="Entity">
+														<field name="name">reavaliar_risco</field>
+														<field name="description">Atualiza Belief(vezes_interceptado), descarta alvo_escolhido e confirma alerta na Arena.</field>
+														<field name="uniqueId">25</field>
+													    </base>
+
+													    <field name="actions"><list>
+														<object type="Action" id="41">
+														    <base type="Interaction">
+															<base type="Entity">
+															    <field name="name">confirmar_alerta_interceptacao</field>
+															    <field name="description">Limpa o sensor alerta_interceptacao na Arena apos o Walker atualizar sua crenca de risco.</field>
+															    <field name="uniqueId">17</field>
+															</base>
+
+														    </base>
+
+														    <field name="parameters">()</field>
+														</object>
+														</list>
+													    </field>
+													    <field name="percepts"><list>
+														<object type="Percept" id="42">
+														    <base type="Interaction">
+															<base type="Entity">
+															    <field name="name">alerta_interceptacao</field>
+															    <field name="description">Sensor privado indicando que o Walker foi interceptado e devolvido a origem.</field>
+															    <field name="uniqueId">2</field>
+															</base>
+
+														    </base>
+
+														    <field name="source">Arena (grupo privado do Walker)</field>
+														    <field name="informationCarried">(total_interceptacoes)</field>
+														    <field name="frequency">Apos interceptacao por G1/G2</field>
+														    <field name="agentsResponding"><list>
+															<object ref="34"/>
+															</list>
+														    </field>
+														</object>
+														</list>
+													    </field>
+													    <field name="data"><list>
+														<object ref="38"/>
+
+														<object type="DataConnection" id="43">
+														    <base type="Entity">
+															<field name="name">&lt;Prometheus unique entity name au.edu.rmit.cs.prometheus.datamodel.jacob.DataConnection ID=34&gt;</field>
+															<field name="uniqueId">34</field>
+														    </base>
+
+														    <field name="type">
+															<object type="Data" id="44">
+															    <base type="Entity">
+																<field name="name">alvo_escolhido</field>
+																<field name="description">Intencao atual de alvo selecionada pelo plano escolher_alvo.</field>
+																<field name="uniqueId">33</field>
+															    </base>
+
+															    <field name="dataType">Belief (tx, ty, valor)</field>
+															    <field name="connections"><list>
+																<object ref="43"/>
+																</list>
+															    </field>
+															</object>
+														    </field>
+														    <field name="readingEntities"><list>
+															<object type="Plan" id="45">
+															    <base type="Entity">
+																<field name="name">navegar</field>
+																<field name="description">Planeja passo A* flanqueando G1/G2 (Path_Graph e Wall_Set), chama mover_walker e gera evento parede_descoberta se colidir.</field>
+																<field name="uniqueId">23</field>
+															    </base>
+
+															    <field name="actions"><list>
+																<object type="Action" id="46">
+																    <base type="Interaction">
+																	<base type="Entity">
+																	    <field name="name">mover_walker</field>
+																	    <field name="description">Atuador fisico do Walker: desloca 1 celula no grid (retornando colisao com parede oculta ou esbarro em Guardiao).</field>
+																	    <field name="uniqueId">15</field>
+																	</base>
+
+																    </base>
+
+																    <field name="parameters">direction in {up, down, left, right, stay}</field>
+																</object>
+																</list>
+															    </field>
+															    <field name="percepts"><list>
+																<object ref="33"/>
+
+																<object ref="37"/>
+																</list>
+															    </field>
+															    <field name="outgoingMessages"><list>
+																<object type="MessageDistributionPair" id="47">
+																    <base type="Entity">
+																	<field name="name">planMessagePair-39</field>
+																	<field name="uniqueId">39</field>
+																    </base>
+
+																    <field name="type">
+																	<object type="Message" id="48">
+																	    <base type="Interaction">
+																		<base type="Entity">
+																		    <field name="name">parede_descoberta</field>
+																		    <field name="uniqueId">26</field>
+																		</base>
+
+																	    </base>
+
+																	    <field name="distribution"><list>
+																		<object type="MessageDistributionPair" id="49">
+																		    <base type="Entity">
+																			<field name="name">agentDiagramPair-27</field>
+																			<field name="uniqueId">27</field>
+																		    </base>
+
+																		    <field name="type">
+																			<object ref="48"/>
+																		    </field>
+																		    <field name="toEntities"><list>
+																			<object type="Plan" id="50">
+																			    <base type="Entity">
+																				<field name="name">registrar_parede</field>
+																				<field name="description">Reage ao evento interno de colisao gravando a parede descoberta em Belief(Wall_Set).</field>
+																				<field name="uniqueId">28</field>
+																			    </base>
+
+																			    <field name="incomingMessages"><list>
+																				<object type="MessageDistributionPair" id="51">
+																				    <base type="Entity">
+																					<field name="name">planMessagePair-40</field>
+																					<field name="uniqueId">40</field>
+																				    </base>
+
+																				    <field name="type">
+																					<object ref="48"/>
+																				    </field>
+																				    <field name="parentDistributionPairs"><list>
+																					<object ref="49"/>
+																					</list>
+																				    </field>
+																				    <field name="owner">
+																					<object ref="50"/>
+																				    </field>
+																				</object>
+																				</list>
+																			    </field>
+																			    <field name="data"><list>
+																				<object type="DataConnection" id="52">
+																				    <base type="Entity">
+																					<field name="name">&lt;Prometheus unique entity name au.edu.rmit.cs.prometheus.datamodel.jacob.DataConnection ID=38&gt;</field>
+																					<field name="uniqueId">38</field>
+																				    </base>
+
+																				    <field name="type">
+																					<object type="Data" id="53">
+																					    <base type="Entity">
+																						<field name="name">Wall_Set</field>
+																						<field name="description">Conjunto de coordenadas de paredes ocultas descobertas por colisao.</field>
+																						<field name="uniqueId">37</field>
+																					    </base>
+
+																					    <field name="dataType">Belief (list)</field>
+																					    <field name="connections"><list>
+																						<object ref="52"/>
+																						</list>
+																					    </field>
+																					</object>
+																				    </field>
+																				    <field name="readingEntities"><list>
+																					<object ref="45"/>
+																					</list>
+																				    </field>
+																				    <field name="writingEntities"><list>
+																					<object ref="50"/>
+																					</list>
+																				    </field>
+																				</object>
+																				</list>
+																			    </field>
+																			    <field name="context">gain Belief(parede_descoberta)</field>
+																			</object>
+																			</list>
+																		    </field>
+																		    <field name="fromEntities"><list>
+																			<object ref="45"/>
+																			</list>
+																		    </field>
+																		    <field name="childDistributionPairs"><list>
+																			<object ref="47"/>
+
+																			<object ref="51"/>
+																			</list>
+																		    </field>
+																		    <field name="owner">
+																			<object ref="34"/>
+																		    </field>
+																		</object>
+
+																		<object ref="47"/>
+
+																		<object ref="51"/>
+																		</list>
+																	    </field>
+																	    <field name="purpose">Evento interno BDI disparado quando mover_walker detecta colisao com parede oculta.</field>
+																	    <field name="informationCarried">(wx, wy)</field>
+																	</object>
+																    </field>
+																    <field name="parentDistributionPairs"><list>
+																	<object ref="49"/>
+																	</list>
+																    </field>
+																    <field name="owner">
+																	<object ref="45"/>
+																    </field>
+																</object>
+																</list>
+															    </field>
+															    <field name="data"><list>
+																<object ref="43"/>
+
+																<object type="DataConnection" id="54">
+																    <base type="Entity">
+																	<field name="name">&lt;Prometheus unique entity name au.edu.rmit.cs.prometheus.datamodel.jacob.DataConnection ID=36&gt;</field>
+																	<field name="uniqueId">36</field>
+																    </base>
+
+																    <field name="type">
+																	<object type="Data" id="55">
+																	    <base type="Entity">
+																		<field name="name">Path_Graph</field>
+																		<field name="description">Grafo de adjacencia das celulas livres percorridas pelo Walker.</field>
+																		<field name="uniqueId">35</field>
+																	    </base>
+
+																	    <field name="dataType">Belief (dict)</field>
+																	    <field name="connections"><list>
+																		<object ref="54"/>
+																		</list>
+																	    </field>
+																	</object>
+																    </field>
+																    <field name="readingEntities"><list>
+																	<object ref="45"/>
+																	</list>
+																    </field>
+																    <field name="writingEntities"><list>
+																	<object ref="45"/>
+																	</list>
+																    </field>
+																</object>
+
+																<object ref="52"/>
+																</list>
+															    </field>
+															    <field name="context">Belief(alvo_escolhido) &amp; Belief(agt_position)</field>
+															</object>
+															</list>
+														    </field>
+														    <field name="writingEntities"><list>
+															<object ref="35"/>
+
+															<object type="Plan" id="56">
+															    <base type="Entity">
+																<field name="name">capturar</field>
+																<field name="description">Chama reivindicar_alvo(tx, ty), limpa alvo_escolhido e transmite alvo_capturado / encerrar.</field>
+																<field name="uniqueId">24</field>
+															    </base>
+
+															    <field name="actions"><list>
+																<object type="Action" id="57">
+																    <base type="Interaction">
+																	<base type="Entity">
+																	    <field name="name">reivindicar_alvo</field>
+																	    <field name="description">Captura atomicamente (via RLock na Arena) o alvo livre na coordenada atual.</field>
+																	    <field name="uniqueId">16</field>
+																	</base>
+
+																    </base>
+
+																    <field name="parameters">(x, y)</field>
+																</object>
+																</list>
+															    </field>
+															    <field name="percepts"><list>
+																<object type="Percept" id="58">
+																    <base type="Interaction">
+																	<base type="Entity">
+																	    <field name="name">sobre_alvo</field>
+																	    <field name="description">Sensor privado do Walker indicando que pisou sobre um alvo livre.</field>
+																	    <field name="uniqueId">1</field>
+																	</base>
+
+																    </base>
+
+																    <field name="source">Arena (grupo privado do Walker)</field>
+																    <field name="informationCarried">(tx, ty, valor)</field>
+																    <field name="frequency">Ao entrar em celula de alvo livre</field>
+																    <field name="agentsResponding"><list>
+																	<object ref="34"/>
+																	</list>
+																    </field>
+																</object>
+																</list>
+															    </field>
+															    <field name="outgoingMessages"><list>
+																<object type="MessageDistributionPair" id="59">
+																    <base type="Entity">
+																	<field name="name">planMessagePair-41</field>
+																	<field name="uniqueId">41</field>
+																    </base>
+
+																    <field name="type">
+																	<object type="Message" id="60">
+																	    <base type="Interaction">
+																		<base type="Entity">
+																		    <field name="name">alvo_capturado</field>
+																		    <field name="uniqueId">11</field>
+																		</base>
+
+																	    </base>
+
+																	    <field name="distribution"><list>
+																		<object type="MessageDistributionPair" id="61">
+																		    <base type="Entity">
+																			<field name="name">systemDiagramPair-12</field>
+																			<field name="uniqueId">12</field>
+																		    </base>
+
+																		    <field name="type">
+																			<object ref="60"/>
+																		    </field>
+																		    <field name="toEntities"><list>
+																			<object ref="34"/>
+																			</list>
+																		    </field>
+																		    <field name="fromEntities"><list>
+																			<object ref="34"/>
+																			</list>
+																		    </field>
+																		    <field name="childDistributionPairs"><list>
+																			<object type="MessageDistributionPair" id="62">
+																			    <base type="Entity">
+																				<field name="name">agentMessagePair-19</field>
+																				<field name="uniqueId">19</field>
+																			    </base>
+
+																			    <field name="type">
+																				<object ref="60"/>
+																			    </field>
+																			    <field name="toEntities"><list>
+																				<object type="Plan" id="63">
+																				    <base type="Entity">
+																					<field name="name">on_alvo_capturado</field>
+																					<field name="description">Descarta alvo_escolhido caso o alvo visado tenha sido capturado por um Walker rival.</field>
+																					<field name="uniqueId">29</field>
+																				    </base>
+
+																				    <field name="incomingMessages"><list>
+																					<object type="MessageDistributionPair" id="64">
+																					    <base type="Entity">
+																						<field name="name">planMessagePair-43</field>
+																						<field name="uniqueId">43</field>
+																					    </base>
+
+																					    <field name="type">
+																						<object ref="60"/>
+																					    </field>
+																					    <field name="parentDistributionPairs"><list>
+																						<object ref="62"/>
+																						</list>
+																					    </field>
+																					    <field name="owner">
+																						<object ref="63"/>
+																					    </field>
+																					</object>
+																					</list>
+																				    </field>
+																				    <field name="data"><list>
+																					<object ref="43"/>
+																					</list>
+																				    </field>
+																				    <field name="context">vencedor != my_name</field>
+																				</object>
+																				</list>
+																			    </field>
+																			    <field name="fromEntities"><list>
+																				<object ref="56"/>
+																				</list>
+																			    </field>
+																			    <field name="parentDistributionPairs"><list>
+																				<object ref="61"/>
+																				</list>
+																			    </field>
+																			    <field name="childDistributionPairs"><list>
+																				<object ref="59"/>
+
+																				<object ref="64"/>
+																				</list>
+																			    </field>
+																			    <field name="owner">
+																				<object ref="34"/>
+																			    </field>
+																			</object>
+																			</list>
+																		    </field>
+																		    <field name="owner">
+																			<object type="SystemOverviewDiagramData" id="65">
+																			    <field name="agents"><list>
+																				<object ref="34"/>
+
+																				<object ref="29"/>
+																				</list>
+																			    </field>
+																			    <field name="percepts"><list>
+																				<object ref="58"/>
+
+																				<object ref="42"/>
+
+																				<object ref="36"/>
+
+																				<object ref="33"/>
+
+																				<object ref="37"/>
+
+																				<object ref="32"/>
+
+																				<object type="Percept" id="66">
+																				    <base type="Interaction">
+																					<base type="Entity">
+																					    <field name="name">anel_patrulha</field>
+																					    <field name="description">Celulas livres do anel de patrulha (distancia Manhattan 1..2) e info_arena.</field>
+																					    <field name="uniqueId">7</field>
+																					</base>
+
+																				    </base>
+
+																				    <field name="source">Arena (grupo publico)</field>
+																				    <field name="informationCarried">([(x, y), ...], alvo_protegido)</field>
+																				    <field name="frequency">Constante durante a partida</field>
+																				    <field name="agentsResponding"><list>
+																					<object ref="29"/>
+																					</list>
+																				    </field>
+																				</object>
+
+																				<object type="Percept" id="67">
+																				    <base type="Interaction">
+																					<base type="Entity">
+																					    <field name="name">alvo_protegido_capturado</field>
+																					    <field name="description">Sinal publico da Arena quando o alvo protegido (50) deixa de estar livre.</field>
+																					    <field name="uniqueId">8</field>
+																					</base>
+
+																				    </base>
+
+																				    <field name="source">Arena (grupo publico)</field>
+																				    <field name="informationCarried">(tx, ty)</field>
+																				    <field name="frequency">Ao capturar o alvo de maior valor</field>
+																				    <field name="agentsResponding"><list>
+																					<object ref="29"/>
+																					</list>
+																				    </field>
+																				</object>
+																				</list>
+																			    </field>
+																			    <field name="actions"><list>
+																				<object ref="46"/>
+
+																				<object ref="57"/>
+
+																				<object ref="41"/>
+
+																				<object ref="31"/>
+																				</list>
+																			    </field>
+																			    <field name="messageDistributionPairs"><list>
+																				<object ref="61"/>
+
+																				<object ref="28"/>
+																				</list>
+																			    </field>
+																			</object>
+																		    </field>
+																		</object>
+
+																		<object ref="62"/>
+
+																		<object ref="59"/>
+
+																		<object ref="64"/>
+																		</list>
+																	    </field>
+																	    <field name="purpose">Notificar via broadcast KQML (tell) os Walkers rivais sobre alvo capturado.</field>
+																	    <field name="informationCarried">(tx, ty, valor, vencedor)</field>
+																	</object>
+																    </field>
+																    <field name="parentDistributionPairs"><list>
+																	<object ref="62"/>
+																	</list>
+																    </field>
+																    <field name="owner">
+																	<object ref="56"/>
+																    </field>
+																</object>
+
+																<object type="MessageDistributionPair" id="68">
+																    <base type="Entity">
+																	<field name="name">planMessagePair-42</field>
+																	<field name="uniqueId">42</field>
+																    </base>
+
+																    <field name="type">
+																	<object ref="27"/>
+																    </field>
+																    <field name="parentDistributionPairs"><list>
+																	<object type="MessageDistributionPair" id="69">
+																	    <base type="Entity">
+																		<field name="name">agentMessagePair-20</field>
+																		<field name="uniqueId">20</field>
+																	    </base>
+
+																	    <field name="type">
+																		<object ref="27"/>
+																	    </field>
+																	    <field name="toEntities"><list>
+																		<object type="Plan" id="70">
+																		    <base type="Entity">
+																			<field name="name">encerrar_walker</field>
+																			<field name="description">Finaliza o ciclo BDI do Walker (stop_cycle) ao receber encerrar.</field>
+																			<field name="uniqueId">30</field>
+																		    </base>
+
+																		    <field name="incomingMessages"><list>
+																			<object type="MessageDistributionPair" id="71">
+																			    <base type="Entity">
+																				<field name="name">planMessagePair-44</field>
+																				<field name="uniqueId">44</field>
+																			    </base>
+
+																			    <field name="type">
+																				<object ref="27"/>
+																			    </field>
+																			    <field name="parentDistributionPairs"><list>
+																				<object ref="69"/>
+																				</list>
+																			    </field>
+																			    <field name="owner">
+																				<object ref="70"/>
+																			    </field>
+																			</object>
+																			</list>
+																		    </field>
+																		</object>
+																		</list>
+																	    </field>
+																	    <field name="fromEntities"><list>
+																		<object ref="56"/>
+																		</list>
+																	    </field>
+																	    <field name="parentDistributionPairs"><list>
+																		<object ref="28"/>
+																		</list>
+																	    </field>
+																	    <field name="childDistributionPairs"><list>
+																		<object ref="68"/>
+
+																		<object ref="71"/>
+																		</list>
+																	    </field>
+																	    <field name="owner">
+																		<object ref="34"/>
+																	    </field>
+																	</object>
+																	</list>
+																    </field>
+																    <field name="owner">
+																	<object ref="56"/>
+																    </field>
+																</object>
+																</list>
+															    </field>
+															    <field name="data"><list>
+																<object ref="43"/>
+																</list>
+															    </field>
+															    <field name="context">Belief(sobre_alvo)</field>
+															</object>
+
+															<object ref="40"/>
+
+															<object ref="63"/>
+															</list>
+														    </field>
+														</object>
+														</list>
+													    </field>
+													    <field name="context">Belief(alerta_interceptacao)</field>
+													</object>
+													</list>
+												    </field>
+												</object>
+
+												<object ref="43"/>
+												</list>
+											    </field>
+											    <field name="context">~Belief(alvo_escolhido) &amp; Belief(agt_position)</field>
+											</object>
+
+											<object ref="45"/>
+
+											<object ref="56"/>
+
+											<object ref="40"/>
+
+											<object ref="50"/>
+
+											<object ref="63"/>
+
+											<object ref="70"/>
+											</list>
+										    </field>
+										    <field name="percepts"><list>
+											<object ref="58"/>
+
+											<object ref="42"/>
+
+											<object ref="36"/>
+
+											<object ref="33"/>
+
+											<object ref="37"/>
+											</list>
+										    </field>
+										    <field name="actions"><list>
+											<object ref="46"/>
+
+											<object ref="57"/>
+
+											<object ref="41"/>
+											</list>
+										    </field>
+										    <field name="messages"><list>
+											<object ref="62"/>
+
+											<object ref="69"/>
+
+											<object ref="49"/>
+											</list>
+										    </field>
+										    <field name="data"><list>
+											<object ref="38"/>
+
+											<object ref="43"/>
+
+											<object ref="54"/>
+
+											<object ref="52"/>
+											</list>
+										    </field>
+										</object>
+
+										<object ref="29"/>
+										</list>
+									    </field>
+									</object>
+									</list>
+								    </field>
+								    <field name="context">Belief(walker_adjacente) &amp; Belief(agt_position)</field>
+								</object>
+
+								<object type="Plan" id="72">
+								    <base type="Entity">
+									<field name="name">rondar</field>
+									<field name="description">Regra reflexa de patrulha sem estado: avanca no sentido horario do anel evitando o outro Guardiao via mover_guardiao(direcao).</field>
+									<field name="uniqueId">46</field>
+								    </base>
+
+								    <field name="actions"><list>
+									<object ref="31"/>
+									</list>
+								    </field>
+								    <field name="percepts"><list>
+									<object ref="33"/>
+
+									<object ref="37"/>
+
+									<object ref="66"/>
+									</list>
+								    </field>
+								    <field name="context">Belief(agt_position) &amp; Belief(anel_patrulha)</field>
+								</object>
+
+								<object type="Plan" id="73">
+								    <base type="Entity">
+									<field name="name">encerrar_ronda</field>
+									<field name="description">Encerra patrulha (stop_cycle) assim que o alvo protegido (50) e capturado.</field>
+									<field name="uniqueId">47</field>
+								    </base>
+
+								    <field name="percepts"><list>
+									<object ref="67"/>
+									</list>
+								    </field>
+								    <field name="context">Belief(alvo_protegido_capturado)</field>
+								</object>
+
+								<object ref="25"/>
+								</list>
+							    </field>
+							    <field name="percepts"><list>
+								<object ref="33"/>
+
+								<object ref="37"/>
+
+								<object ref="32"/>
+
+								<object ref="66"/>
+
+								<object ref="67"/>
+								</list>
+							    </field>
+							    <field name="actions"><list>
+								<object ref="31"/>
+								</list>
+							    </field>
+							    <field name="messages"><list>
+								<object type="MessageDistributionPair" id="74">
+								    <base type="Entity">
+									<field name="name">agentMessagePair-21</field>
+									<field name="uniqueId">21</field>
+								    </base>
+
+								    <field name="type">
+									<object ref="27"/>
+								    </field>
+								    <field name="toEntities"><list>
+									<object ref="25"/>
+									</list>
+								    </field>
+								    <field name="parentDistributionPairs"><list>
+									<object ref="28"/>
+									</list>
+								    </field>
+								    <field name="childDistributionPairs"><list>
+									<object ref="26"/>
+									</list>
+								    </field>
+								    <field name="owner">
+									<object ref="29"/>
+								    </field>
+								</object>
+								</list>
+							    </field>
+							</object>
+
+							<object ref="34"/>
+							</list>
+						    </field>
+						    <field name="fromEntities"><list>
+							<object ref="34"/>
+							</list>
+						    </field>
+						    <field name="childDistributionPairs"><list>
+							<object ref="69"/>
+
+							<object ref="74"/>
+							</list>
+						    </field>
+						    <field name="owner">
+							<object ref="65"/>
+						    </field>
+						</object>
+
+						<object ref="69"/>
+
+						<object ref="74"/>
+
+						<object ref="68"/>
+
+						<object ref="71"/>
+
+						<object ref="26"/>
+						</list>
+					    </field>
+					    <field name="purpose">Notificar via broadcast KQML (tell) todos os agentes quando restam == 0.</field>
+					    <field name="informationCarried">encerrar()</field>
+					</object>
+				    </field>
+				    <field name="parentDistributionPairs"><list>
+					<object ref="74"/>
+					</list>
+				    </field>
+				    <field name="owner">
+					<object ref="25"/>
+				    </field>
+				</object>
+				</list>
+			    </field>
+			</object>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="75">
+			    <field name="x">825</field>
+			    <field name="y">200</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="76">
+		    <field name="entity">
+			<object ref="31"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="77">
+			    <field name="x">185</field>
+			    <field name="y">355</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="78">
+		    <field name="entity">
+			<object ref="33"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="79">
+			    <field name="x">225</field>
+			    <field name="y">25</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="80">
+		    <field name="entity">
+			<object ref="74"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="81">
+			    <field name="x">860</field>
+			    <field name="y">25</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="82">
+		    <field name="entity">
+			<object ref="37"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="83">
+			    <field name="x">365</field>
+			    <field name="y">90</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="84">
+		    <field name="entity">
+			<object ref="32"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="85">
+			    <field name="x">15</field>
+			    <field name="y">25</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="86">
+		    <field name="entity">
+			<object ref="66"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="87">
+			    <field name="x">480</field>
+			    <field name="y">25</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="88">
+		    <field name="entity">
+			<object ref="67"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="89">
+			    <field name="x">650</field>
+			    <field name="y">85</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="90">
+		    <field name="entity">
+			<object ref="30"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="91">
+			    <field name="x">65</field>
+			    <field name="y">200</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="92">
+		    <field name="entity">
+			<object ref="72"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="93">
+			    <field name="x">315</field>
+			    <field name="y">200</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="94">
+		    <field name="entity">
+			<object ref="73"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="95">
+			    <field name="x">575</field>
+			    <field name="y">200</field>
+			</object>
+		    </field>
+		</object>
+		</list>
+	    </field>
+	</object>
+
+	<object type="DiagramSettings" id="96">
+	    <field name="diagramId">
+		<object type="DiagramId" id="97">
+		    <field name="stringId">au.edu.rmit.cs.prometheus.gui.diagram.agentoverview.AgentOverviewDiagramModel(id#9)</field>
+		</object>
+	    </field>
+	    <field name="entitySettings"><list>
+		<object type="DiagramEntitySetting" id="98">
+		    <field name="entity">
+			<object ref="38"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="99">
+			    <field name="x">30</field>
+			    <field name="y">325</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="100">
+		    <field name="entity">
+			<object ref="58"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="101">
+			    <field name="x">545</field>
+			    <field name="y">25</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="102">
+		    <field name="entity">
+			<object ref="42"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="103">
+			    <field name="x">735</field>
+			    <field name="y">25</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="104">
+		    <field name="entity">
+			<object ref="43"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="105">
+			    <field name="x">625</field>
+			    <field name="y">325</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="106">
+		    <field name="entity">
+			<object ref="36"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="107">
+			    <field name="x">45</field>
+			    <field name="y">25</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="108">
+		    <field name="entity">
+			<object ref="33"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="109">
+			    <field name="x">200</field>
+			    <field name="y">25</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="110">
+		    <field name="entity">
+			<object ref="54"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="111">
+			    <field name="x">195</field>
+			    <field name="y">325</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="112">
+		    <field name="entity">
+			<object ref="37"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="113">
+			    <field name="x">375</field>
+			    <field name="y">25</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="114">
+		    <field name="entity">
+			<object ref="52"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="115">
+			    <field name="x">290</field>
+			    <field name="y">455</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="116">
+		    <field name="entity">
+			<object ref="46"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="117">
+			    <field name="x">95</field>
+			    <field name="y">485</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="118">
+		    <field name="entity">
+			<object ref="57"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="119">
+			    <field name="x">470</field>
+			    <field name="y">485</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="120">
+		    <field name="entity">
+			<object ref="41"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="121">
+			    <field name="x">650</field>
+			    <field name="y">485</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="122">
+		    <field name="entity">
+			<object ref="62"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="123">
+			    <field name="x">915</field>
+			    <field name="y">485</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="124">
+		    <field name="entity">
+			<object ref="69"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="125">
+			    <field name="x">1095</field>
+			    <field name="y">485</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="126">
+		    <field name="entity">
+			<object ref="35"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="127">
+			    <field name="x">45</field>
+			    <field name="y">155</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="128">
+		    <field name="entity">
+			<object ref="45"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="129">
+			    <field name="x">265</field>
+			    <field name="y">155</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="130">
+		    <field name="entity">
+			<object ref="56"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="131">
+			    <field name="x">515</field>
+			    <field name="y">155</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="132">
+		    <field name="entity">
+			<object ref="40"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="133">
+			    <field name="x">745</field>
+			    <field name="y">155</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="134">
+		    <field name="entity">
+			<object ref="48"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="135">
+			    <field name="x">365</field>
+			    <field name="y">250</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="136">
+		    <field name="entity">
+			<object ref="49"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="137">
+			    <field name="x">365</field>
+			    <field name="y">250</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="138">
+		    <field name="entity">
+			<object ref="50"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="139">
+			    <field name="x">360</field>
+			    <field name="y">345</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="140">
+		    <field name="entity">
+			<object ref="63"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="141">
+			    <field name="x">885</field>
+			    <field name="y">345</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="142">
+		    <field name="entity">
+			<object ref="70"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="143">
+			    <field name="x">1085</field>
+			    <field name="y">345</field>
+			</object>
+		    </field>
+		</object>
+		</list>
+	    </field>
+	</object>
+
+	<object type="DiagramSettings" id="144">
+	    <field name="diagramId">
+		<object type="DiagramId" id="145">
+		    <field name="stringId">System Overview</field>
+		</object>
+	    </field>
+	    <field name="entitySettings"><list>
+		<object type="DiagramEntitySetting" id="146">
+		    <field name="entity">
+			<object ref="58"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="147">
+			    <field name="x">20</field>
+			    <field name="y">20</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="148">
+		    <field name="entity">
+			<object ref="42"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="149">
+			    <field name="x">20</field>
+			    <field name="y">92</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="150">
+		    <field name="entity">
+			<object ref="36"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="151">
+			    <field name="x">45</field>
+			    <field name="y">165</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="152">
+		    <field name="entity">
+			<object ref="33"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="153">
+			    <field name="x">30</field>
+			    <field name="y">248</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="154">
+		    <field name="entity">
+			<object ref="37"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="155">
+			    <field name="x">30</field>
+			    <field name="y">330</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="156">
+		    <field name="entity">
+			<object ref="32"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="157">
+			    <field name="x">20</field>
+			    <field name="y">415</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="158">
+		    <field name="entity">
+			<object ref="66"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="159">
+			    <field name="x">25</field>
+			    <field name="y">495</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="160">
+		    <field name="entity">
+			<object ref="67"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="161">
+			    <field name="x">15</field>
+			    <field name="y">575</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="162">
+		    <field name="entity">
+			<object ref="34"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="163">
+			    <field name="x">345</field>
+			    <field name="y">110</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="164">
+		    <field name="entity">
+			<object ref="29"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="165">
+			    <field name="x">345</field>
+			    <field name="y">435</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="166">
+		    <field name="entity">
+			<object ref="61"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="167">
+			    <field name="x">505</field>
+			    <field name="y">225</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="168">
+		    <field name="entity">
+			<object ref="28"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="169">
+			    <field name="x">355</field>
+			    <field name="y">280</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="170">
+		    <field name="entity">
+			<object ref="46"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="171">
+			    <field name="x">665</field>
+			    <field name="y">35</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="172">
+		    <field name="entity">
+			<object ref="57"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="173">
+			    <field name="x">665</field>
+			    <field name="y">115</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="174">
+		    <field name="entity">
+			<object ref="41"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="175">
+			    <field name="x">665</field>
+			    <field name="y">195</field>
+			</object>
+		    </field>
+		</object>
+
+		<object type="DiagramEntitySetting" id="176">
+		    <field name="entity">
+			<object ref="31"/>
+		    </field>
+		    <field name="location">
+			<object type="Coordinate" id="177">
+			    <field name="x">665</field>
+			    <field name="y">445</field>
+			</object>
+		    </field>
+		</object>
+		</list>
+	    </field>
+	</object>
+	</list>
+    </field>
+    <field name="model">
+	<object type="PrometheusModelData" id="178">
+	    <field name="projectData">
+		<object ref="1"/>
+	    </field>
+	    <field name="actions"><list>
+		<object ref="46"/>
+
+		<object ref="57"/>
+
+		<object ref="41"/>
+
+		<object ref="31"/>
+		</list>
+	    </field>
+	    <field name="agents"><list>
+		<object ref="34"/>
+
+		<object ref="29"/>
+		</list>
+	    </field>
+	    <field name="data"><list>
+		<object ref="39"/>
+
+		<object ref="44"/>
+
+		<object ref="55"/>
+
+		<object ref="53"/>
+		</list>
+	    </field>
+	    <field name="goals"><list>
+		<object ref="5"/>
+
+		<object ref="6"/>
+
+		<object ref="7"/>
+
+		<object ref="14"/>
+
+		<object ref="15"/>
+
+		<object ref="16"/>
+		</list>
+	    </field>
+	    <field name="messages"><list>
+		<object ref="60"/>
+
+		<object ref="27"/>
+
+		<object ref="48"/>
+		</list>
+	    </field>
+	    <field name="percepts"><list>
+		<object ref="58"/>
+
+		<object ref="42"/>
+
+		<object ref="36"/>
+
+		<object ref="33"/>
+
+		<object ref="37"/>
+
+		<object ref="32"/>
+
+		<object ref="66"/>
+
+		<object ref="67"/>
+		</list>
+	    </field>
+	    <field name="plans"><list>
+		<object ref="35"/>
+
+		<object ref="45"/>
+
+		<object ref="56"/>
+
+		<object ref="40"/>
+
+		<object ref="50"/>
+
+		<object ref="63"/>
+
+		<object ref="70"/>
+
+		<object ref="30"/>
+
+		<object ref="72"/>
+
+		<object ref="73"/>
+
+		<object ref="25"/>
+		</list>
+	    </field>
+	    <field name="messageDistributionPairs"><list>
+		<object ref="61"/>
+
+		<object ref="28"/>
+
+		<object ref="62"/>
+
+		<object ref="69"/>
+
+		<object ref="74"/>
+
+		<object ref="49"/>
+
+		<object ref="47"/>
+
+		<object ref="51"/>
+
+		<object ref="59"/>
+
+		<object ref="68"/>
+
+		<object ref="64"/>
+
+		<object ref="71"/>
+
+		<object ref="26"/>
+		</list>
+	    </field>
+	    <field name="dataConnections"><list>
+		<object ref="38"/>
+
+		<object ref="43"/>
+
+		<object ref="54"/>
+
+		<object ref="52"/>
+		</list>
+	    </field>
+	    <field name="systemOverviewDiagramData">
+		<object ref="65"/>
+	    </field>
+	    <field name="rolesDiagramData">
+		<object type="RolesDiagramData" id="179">
+		</object>
+	    </field>
+	    <field name="analysisOverviewDiagramData">
+		<object type="AnalysisOverviewDiagramData" id="180">
+		</object>
+	    </field>
+	    <field name="scenariosDiagramData">
+		<object type="ScenariosDiagramData" id="181">
+		</object>
+	    </field>
+	    <field name="goalOverviewDiagramData">
+		<object type="GoalOverviewDiagramData" id="182">
+		</object>
+	    </field>
+	    <field name="dataCouplingDiagramData">
+		<object type="DataCouplingDiagramData" id="183">
+		</object>
+	    </field>
+	    <field name="agentRoleCouplingDiagramData">
+		<object type="AgentRoleCouplingDiagramData" id="184">
+		</object>
+	    </field>
+	    <field name="agentOverviewDiagramData">
+		<object type="AgentOverviewDiagramData" id="185">
+		</object>
+	    </field>
+	    <field name="capabilityOverviewDiagramData">
+		<object type="CapabilityOverviewDiagramData" id="186">
+		</object>
+	    </field>
+	</object>
+    </field>
+</object>
+
+</jacob>
