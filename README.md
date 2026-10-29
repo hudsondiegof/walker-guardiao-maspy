@@ -20,11 +20,40 @@ Apenas **2 tipos legítimos de agentes** atuam fisicamente no ambiente `Arena(En
 
 ## Como rodar
 
-```powershell
-cd C:\Users\Hudson\.gemini\antigravity\scratch\walker-guardiao-maspy
-.\.venv\Scripts\python.exe main.py            # Menu + visualizacao Pygame (delay inicial 0.8s)
-.\.venv\Scripts\python.exe main.py --sem-gui  # Modo terminal rapido com log BDI completo
+### 1. Clonar o repositório
+```bash
+git clone https://github.com/hudsondiegof/walker-guardiao-maspy.git
+cd walker-guardiao-maspy
 ```
+
+### 2. Criar e ativar o ambiente virtual (recomendado)
+
+- **Windows (PowerShell):**
+  ```powershell
+  python -m venv .venv
+  .\.venv\Scripts\Activate.ps1
+  ```
+- **Linux / macOS:**
+  ```bash
+  python3 -m venv .venv
+  source .venv/bin/activate
+  ```
+
+### 3. Instalar as dependências
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Executar
+
+- **Interface visual Pygame (Menu interativo + visualização em tempo real):**
+  ```bash
+  python main.py
+  ```
+- **Modo terminal rápido (sem GUI, log BDI completo):**
+  ```bash
+  python main.py --sem-gui
+  ```
 
 ## Modelagem no PDT 3.2b (Prometheus Design Tool)
 
