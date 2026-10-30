@@ -6,6 +6,8 @@
 
 # Walkers Competitivos com Alvos de Valores Distintos e Dois Agentes Guardiões em Grid 2D (MASPY)
 
+**Repositório do projeto:** [https://github.com/hudsondiegof/walker-guardiao-maspy.git](https://github.com/hudsondiegof/walker-guardiao-maspy.git)
+
 ## 1. Descrição do Problema e Extensão Proposta
 
 Partindo do exemplo base *Navigation on 2D Grid* do framework **MASPY** (`maspy-ml`), este projeto modela e implementa um ambiente competitivo em um grid bidimensional com paredes ocultas e **dois alvos de valores distintos** (padrão: `10` e `50`). Múltiplos agentes **Walker** são posicionados aleatoriamente sem conhecimento prévio das paredes e competem para maximizar sua pontuação capturando os alvos disponíveis.
