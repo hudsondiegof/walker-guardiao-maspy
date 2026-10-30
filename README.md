@@ -1,10 +1,10 @@
-# Walkers vs. Guardiões — Arena Competitiva em BDI Puro (MASPY)
+# Walkers vs. Guardiões — Arena Competitiva em BDI (MASPY)
 
-Projeto independente e minimalista para a atividade de **Sistemas Multiagentes** (baseado no exemplo *Navigation on 2D Grid* da Wiki do MASPY), modelando deliberação **BDI pura** com seleção de múltiplos planos `@pl` por contexto, sem lógica decisória embutida no `Environment` e sem agentes burocráticos.
+Projeto para a atividade de **Sistemas Multiagentes** (baseado no exemplo *Navigation on 2D Grid* da Wiki do MASPY), modelando deliberação **BDI** com seleção de múltiplos planos `@pl` por contexto, sem lógica decisória embutida no `Environment`.
 
 ## Ideia e Arquitetura
 
-Apenas **2 tipos legítimos de agentes** atuam fisicamente no ambiente `Arena(Environment)`:
+Apenas **2 tipos de agentes** atuam fisicamente no ambiente `Arena(Environment)`:
 
 | Componente | Classificação (Russell & Norvig) | Papel no sistema |
 |---|---|---|
