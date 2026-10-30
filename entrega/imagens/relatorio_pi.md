@@ -8,6 +8,8 @@
 
 **Repositório do projeto:** [https://github.com/hudsondiegof/walker-guardiao-maspy.git](https://github.com/hudsondiegof/walker-guardiao-maspy.git)
 
+**Vídeo de demonstração dos agentes em funcionamento:** [https://youtu.be/qu-9KXqHhCA](https://youtu.be/qu-9KXqHhCA)
+
 ## 1. Descrição do Problema e Extensão Proposta
 
 Partindo do exemplo base *Navigation on 2D Grid* do framework **MASPY** (`maspy-ml`), este projeto modela e implementa um ambiente competitivo em um grid bidimensional com paredes ocultas e **dois alvos de valores distintos** (padrão: `10` e `50`). Múltiplos agentes **Walker** são posicionados aleatoriamente sem conhecimento prévio das paredes e competem para maximizar sua pontuação capturando os alvos disponíveis.
