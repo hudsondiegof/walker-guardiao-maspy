@@ -77,13 +77,13 @@ A tabela abaixo posiciona a arquitetura desenvolvida frente às cinco categorias
 
 A especificação arquitetural e detalhada foi construída nativamente na ferramenta oficial **Prometheus Design Tool (PDT 3.2b)** (arquivo de projeto `pdt/Walker_Guardiao_MASPY.pd`, validado sem alertas no *Crosscheck* de Projeto Arquitetural e Detalhado). As Figuras 1, 2 e 3 foram exportadas diretamente pelo PDT 3.2b.
 
-![Goal Overview Diagram PDT 3.2b](../pdt/pdt_goal_overview.png)
+![Goal Overview Diagram PDT 3.2b](../../pdt/pdt_goal_overview.png)
 
-![System Overview Diagram PDT 3.2b](../pdt/pdt_system_overview.png)
+![System Overview Diagram PDT 3.2b](../../pdt/pdt_system_overview.png)
 
 *Figura 1 — Goal Overview Diagram (topo) e System Overview Diagram (base) gerados nativamente no PDT 3.2b (Walker_Guardiao_MASPY.pd).*
 
-| ![Walker Agent Overview Diagram PDT 3.2b](../pdt/pdt_walker_overview.png) | ![Guardiao Agent Overview Diagram PDT 3.2b](../pdt/pdt_guardiao_overview.png) |
+| ![Walker Agent Overview Diagram PDT 3.2b](../../pdt/pdt_walker_overview.png) | ![Guardiao Agent Overview Diagram PDT 3.2b](../../pdt/pdt_guardiao_overview.png) |
 |---|---|
 | *Figura 2a — Agent Overview Diagram do Walker no PDT 3.2b (seleção BDI entre escolher_alvo, navegar, capturar, reavaliar_risco, evento registrar_parede e crenças Path_Graph, Wall_Set, vezes_interceptado, alvo_escolhido).* | *Figura 2b — Agent Overview Diagram do Guardiao no PDT 3.2b (Simple Reflex sem memória interna: planos interceptar, rondar e encerrar_ronda sobre mover_guardiao).* |
 
