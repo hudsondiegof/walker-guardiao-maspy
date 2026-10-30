@@ -1,0 +1,69 @@
+<svg viewBox="0 0 700 270" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#1f2328" />
+    </marker>
+    <marker id="arr-gray" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#57606a" />
+    </marker>
+  </defs>
+
+  <!-- Lifeline Header Boxes -->
+  <rect x="25" y="10" width="120" height="26" rx="4" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="85" y="27" text-anchor="middle" font-size="10.5" font-weight="600" fill="#1f2328">Arena (Ambiente)</text>
+
+  <rect x="200" y="10" width="115" height="26" rx="4" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="257" y="27" text-anchor="middle" font-size="10.5" font-weight="600" fill="#1f2328">Walker (BDI)</text>
+
+  <rect x="375" y="10" width="120" height="26" rx="4" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="435" y="27" text-anchor="middle" font-size="10.5" font-weight="600" fill="#1f2328">Guardião (Reflex)</text>
+
+  <rect x="550" y="10" width="115" height="26" rx="4" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="607" y="27" text-anchor="middle" font-size="10.5" font-weight="600" fill="#1f2328">Canal (KQML)</text>
+
+  <!-- Vertical Lifelines -->
+  <line x1="85" y1="36" x2="85" y2="255" stroke="#d0d7de" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="257" y1="36" x2="257" y2="255" stroke="#d0d7de" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="435" y1="36" x2="435" y2="255" stroke="#d0d7de" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="607" y1="36" x2="607" y2="255" stroke="#d0d7de" stroke-width="1.2" stroke-dasharray="3 3"/>
+
+  <!-- Step 1: Percepções dos alvos -->
+  <line x1="85" y1="56" x2="251" y2="56" stroke="#57606a" stroke-width="1.2" stroke-dasharray="4 2" marker-end="url(#arr-gray)"/>
+  <text x="165" y="50" text-anchor="middle" font-size="8.8" fill="#57606a">1. Percepções: alvos (50 e 10)</text>
+
+  <!-- Step 2: Walker delibera U(50) -->
+  <path d="M 257 66 C 290 66, 290 84, 263 84" fill="none" stroke="#1f2328" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="296" y="78" text-anchor="start" font-size="8.6" fill="#1f2328">2. Escolhe Alvo 50 (U=35.4 &gt; U=1.2)</text>
+
+  <!-- Step 3: Ronda do Guardião -->
+  <line x1="435" y1="98" x2="91" y2="98" stroke="#1f2328" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="250" y="93" text-anchor="middle" font-size="8.8" fill="#1f2328">3. mover_guardiao() [Plano rondar no anel]</text>
+
+  <!-- Step 4: Detecção reflexa -->
+  <line x1="85" y1="120" x2="429" y2="120" stroke="#57606a" stroke-width="1.2" stroke-dasharray="4 2" marker-end="url(#arr-gray)"/>
+  <text x="270" y="115" text-anchor="middle" font-size="8.8" fill="#57606a">4. Sensor privado: walker_adjacente(Walker)</text>
+
+  <!-- Step 5: Interceptação física -->
+  <line x1="435" y1="142" x2="91" y2="142" stroke="#1f2328" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="270" y="137" text-anchor="middle" font-size="8.8" fill="#1f2328">5. mover_guardiao() [Plano interceptar]</text>
+
+  <!-- Step 6: Retorno e alerta -->
+  <line x1="85" y1="164" x2="251" y2="164" stroke="#57606a" stroke-width="1.2" stroke-dasharray="4 2" marker-end="url(#arr-gray)"/>
+  <text x="165" y="159" text-anchor="middle" font-size="8.8" fill="#cf222e">6. Interceptado! Voltou à origem + risco</text>
+
+  <!-- Step 7: Migração autônoma -->
+  <path d="M 257 174 C 290 174, 290 192, 263 192" fill="none" stroke="#0969da" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="296" y="186" text-anchor="start" font-size="8.6" font-weight="600" fill="#0969da">7. Migra para Alvo 10 (U=1.2 &gt; U=-0.6)</text>
+
+  <!-- Step 8: Captura atômica -->
+  <line x1="257" y1="206" x2="91" y2="206" stroke="#1f2328" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="170" y="201" text-anchor="middle" font-size="8.8" fill="#1f2328">8. reivindicar_alvo(10) [capturar]</text>
+
+  <!-- Step 9: Broadcast KQML -->
+  <line x1="257" y1="228" x2="601" y2="228" stroke="#1f2328" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="430" y="223" text-anchor="middle" font-size="8.8" fill="#1f2328">9. broadcast: alvo_capturado(10) e encerrar</text>
+
+  <!-- Step 10: Reação do Guardião -->
+  <line x1="607" y1="248" x2="441" y2="248" stroke="#57606a" stroke-width="1.2" stroke-dasharray="4 2" marker-end="url(#arr-gray)"/>
+  <text x="525" y="243" text-anchor="middle" font-size="8.6" fill="#57606a">10. Plano encerrar_ronda</text>
+</svg>

@@ -286,7 +286,7 @@ class MenuScreen:
         self.inputs = [
             TextInput((200, 60, 100, 25), "Map Width:", "10"),
             TextInput((200, 100, 100, 25), "Map Height:", "10"),
-            TextInput((200, 140, 100, 25), "Walls %:", "20"),
+            TextInput((200, 140, 100, 25), "Walls %:", "15"),
             TextInput((200, 180, 100, 25), "Walkers:", "4"),
             TextInput((200, 220, 100, 25), "Valor alvo A:", "10"),
             TextInput((200, 260, 100, 25), "Valor alvo B:", "50"),

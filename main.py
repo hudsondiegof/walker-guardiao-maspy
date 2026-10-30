@@ -8,7 +8,7 @@ from agentes import Walker, Guardiao
 
 NUM_GUARDIOES = 2
 DELAY_INICIAL = 0.8
-PADRAO = ((10, 10), 0.20, 4, (10, 50))
+PADRAO = ((10, 10), 0.15, 4, (10, 50))
 
 
 def criar_sistema(map_size, walls_prob, num_walkers, valores):
